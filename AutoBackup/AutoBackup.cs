@@ -98,7 +98,8 @@ namespace AutoBackup
 
             this.notifyIcon1.Visible = false;
         }
-        private void autoBackup_Resize(object sender, EventArgs e)
+
+        private void autoBackup_Resize_1(object sender, EventArgs e)
         {
             if (WindowState == FormWindowState.Minimized)
 
@@ -109,6 +110,31 @@ namespace AutoBackup
                 notifyIcon1.Visible = true;
 
             }
+        }
+
+        private void bunifuShadowPanel1_ControlAdded(object sender, ControlEventArgs e)
+        {
+
+        }
+
+        private void backupTab_Click(object sender, EventArgs e)
+        {
+            paginaProg.PageName = "backupPage";
+        }
+
+        private void ftpTab_Click(object sender, EventArgs e)
+        {
+            paginaProg.PageName = "ftpPage";
+        }
+
+        private void googleTab_Click(object sender, EventArgs e)
+        {
+            paginaProg.PageName = "googlePage";
+        }
+
+        private void oneDriveTab_Click(object sender, EventArgs e)
+        {
+            paginaProg.PageName = "oneDrivePage";
         }
     }
 }
