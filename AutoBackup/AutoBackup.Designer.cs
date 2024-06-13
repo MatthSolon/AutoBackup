@@ -939,10 +939,10 @@
             this.paginaProg.Location = new System.Drawing.Point(12, 125);
             this.paginaProg.Multiline = true;
             this.paginaProg.Name = "paginaProg";
-            this.paginaProg.Page = this.backupPage;
-            this.paginaProg.PageIndex = 0;
-            this.paginaProg.PageName = "backupPage";
-            this.paginaProg.PageTitle = "Backup";
+            this.paginaProg.Page = this.googlePage;
+            this.paginaProg.PageIndex = 2;
+            this.paginaProg.PageName = "googlePage";
+            this.paginaProg.PageTitle = "Google Drive";
             this.paginaProg.SelectedIndex = 0;
             this.paginaProg.Size = new System.Drawing.Size(482, 554);
             this.paginaProg.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;

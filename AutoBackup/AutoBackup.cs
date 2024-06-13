@@ -31,10 +31,10 @@ namespace AutoBackup
         private void BotaoProcurarL_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog localPasta = new FolderBrowserDialog();
-            
+            localPasta.RootFolder = Environment.SpecialFolder.MyComputer;
 
             DialogResult dr = localPasta.ShowDialog();
-
+            
             if (dr == System.Windows.Forms.DialogResult.OK)
             {
                 try
