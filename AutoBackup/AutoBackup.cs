@@ -136,5 +136,24 @@ namespace AutoBackup
         {
             paginaProg.PageName = "oneDrivePage";
         }
+
+        private void iniciarAutoBackup_Click(object sender, EventArgs e)
+        {
+            if (iniciarAutoBackup.Text == "Parar")
+            {
+                iniciarAutoBackup.Text = "Iniciar";
+               // Timer1.Enabled = false;
+            }
+            else
+            {
+                iniciarAutoBackup.Text = "Parar";
+               // Timer1.Enabled = true;
+            }
+        }
+       
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+
+        }
     }
 }

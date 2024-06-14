@@ -23,7 +23,7 @@ namespace AutoBackup
         public static void BackupCont(string instanciaNome, string bancoNome, string bancoUsuario, string BancoSenha, string localpasta, string nomeEmpresa)
         {
             string connectionString = $"Server={instanciaNome};Database={bancoNome};User ID={bancoUsuario};Password={BancoSenha};";
-            bool horabackup = DateTime.Parse("10:00:00") == DateTime.Now;
+            bool hora1backup = DateTime.Parse("10:00:00") == DateTime.Now;
              
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -33,7 +33,20 @@ namespace AutoBackup
 
                     while (true)
                     {
-                        if(!horabackup) 
+                        if(hora1backup)
+                        {
+                            connection.Open();
+                            SqlCommand cmd = new SqlCommand(
+                                $@"BACKUP DATABASE {bancoNome} 
+                            TO DISK = '{localpasta}\{nomeEmpresa}{bancoNome}.bak'", connection
+                                );
+                            cmd.ExecuteNonQuery();
+
+
+                            MessageBox.Show("Backup feito com Sucesso");
+
+                        }
+                        //else if ()
                         {
 
                             connection.Open();
@@ -53,19 +66,7 @@ namespace AutoBackup
                             MessageBox.Show("Backup Diferencial feito com Sucesso");
 
                         }
-                            
-                        {
-                            connection.Open();
-                            SqlCommand cmd = new SqlCommand(
-                                $@"BACKUP DATABASE {bancoNome} 
-                            TO DISK = '{localpasta}\{nomeEmpresa}{bancoNome}.bak'", connection
-                                );
-                            cmd.ExecuteNonQuery();
-
-
-                            MessageBox.Show("Backup feito com Sucesso");
-
-                        }
+                                                 
                     }
                 }
                 catch (Exception ex)
