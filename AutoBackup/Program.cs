@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data;
+using System.Drawing.Text;
 
 namespace AutoBackup
 {
@@ -20,62 +21,5 @@ namespace AutoBackup
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new autoBackup());
         }
-        public static void BackupCont(string instanciaNome, string bancoNome, string bancoUsuario, string BancoSenha, string localpasta, string nomeEmpresa)
-        {
-            string connectionString = $"Server={instanciaNome};Database={bancoNome};User ID={bancoUsuario};Password={BancoSenha};";
-            bool hora1backup = DateTime.Parse("10:00:00") == DateTime.Now;
-             
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-
-                try
-                {
-
-                    while (true)
-                    {
-                        if(hora1backup)
-                        {
-                            connection.Open();
-                            SqlCommand cmd = new SqlCommand(
-                                $@"BACKUP DATABASE {bancoNome} 
-                            TO DISK = '{localpasta}\{nomeEmpresa}{bancoNome}.bak'", connection
-                                );
-                            cmd.ExecuteNonQuery();
-
-
-                            MessageBox.Show("Backup feito com Sucesso");
-
-                        }
-                        //else if ()
-                        {
-
-                            connection.Open();
-                            SqlCommand cmd = new SqlCommand(
-
-
-                                $@"BACKUP DATABASE {bancoNome} 
-                            TO DISK = '{localpasta}\{nomeEmpresa}{bancoNome}DF{DateTime.Now.ToString("dd-MM-yyyy-HH-mm")}.bak'
-                            WITH DIFFERENTIAL
-                            ", connection
-                                );
-
-
-                            cmd.ExecuteNonQuery();
-
-
-                            MessageBox.Show("Backup Diferencial feito com Sucesso");
-
-                        }
-                                                 
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Erro ao conectar ao banco de dados: " + ex.Message);
-                }
-            }
-        }
-
-
     }
 }

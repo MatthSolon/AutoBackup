@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Security;
@@ -34,7 +35,7 @@ namespace AutoBackup
             localPasta.RootFolder = Environment.SpecialFolder.MyComputer;
 
             DialogResult dr = localPasta.ShowDialog();
-            
+
             if (dr == System.Windows.Forms.DialogResult.OK)
             {
                 try
@@ -142,18 +143,69 @@ namespace AutoBackup
             if (iniciarAutoBackup.Text == "Parar")
             {
                 iniciarAutoBackup.Text = "Iniciar";
-               // Timer1.Enabled = false;
+
+                timer1.Enabled = false;
+                timer1.Tick += new EventHandler(timer1_Tick);
+                timer1.Interval = 5 * 3600000;
+                timer1.Start();
+
             }
             else
             {
                 iniciarAutoBackup.Text = "Parar";
-               // Timer1.Enabled = true;
+
+                timer1.Enabled = true;
+                try
+                {
+                    string connectionString = $"Server={Instancia.Text};Database={Banco.Text};User ID={Usuario.Text};Password={Senha.Text};";
+                    string backupConteudo;
+
+                    using (SqlConnection connection = new SqlConnection(connectionString))
+                    {
+                        connection.Open();
+                        SqlCommand cmd = new SqlCommand(
+                        backupConteudo = $@"BACKUP DATABASE {Banco.Text} 
+                        TO DISK = '{LocalPasta.Text}\{EmpresaNome.Text}{Banco.Text}.bak'
+                    ", connection
+                        );
+                        cmd.ExecuteNonQuery();
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao conectar ao banco de dados: " + ex.Message);
+
+                }
             }
         }
-       
+
         private void timer1_Tick(object sender, EventArgs e)
         {
+            try
+            {
+                string connectionString = $"Server={Instancia.Text};Database={Banco.Text};User ID={Usuario.Text};Password={Senha.Text};";
+                string backupConteudo;
 
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand(
+                    backupConteudo = $@"BACKUP DATABASE {Banco.Text} 
+                    TO DISK = '{LocalPasta.Text}\{EmpresaNome.Text}{Banco.Text}DF{DateTime.Now.ToString("dd-MM-yyyy-HH-mm")}.bak'
+                    WITH DIFFERENTIAL
+                    ", connection
+                    );
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao conectar ao banco de dados: " + ex.Message);
+
+            }
+        
+        }
         }
     }
-}
+
