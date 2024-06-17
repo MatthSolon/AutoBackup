@@ -150,7 +150,8 @@ namespace AutoBackup
             
                 timer1.Enabled = true;
                 timer1.Tick += new EventHandler(timer1_Tick);
-                timer1.Interval = 5 * 3600000;
+                //timer1.Interval = 18000000; 5 horas
+                timer1.Interval = 180000; // 3 minutos
                 timer1.Start();
                 try
                 {

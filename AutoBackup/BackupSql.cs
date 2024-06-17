@@ -17,31 +17,19 @@ namespace AutoBackup
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-
                 try
                 {
-
                     if (bkpDiferencial)
                     {
-
-
-
                         connection.Open();
                         SqlCommand cmd = new SqlCommand(
-
-
                            backupConteudo = $@"BACKUP DATABASE {bancoNome} 
                             TO DISK = '{localpasta}\{nomeEmpresa}{bancoNome}DF.bak'
                             WITH DIFFERENTIAL
                             ", connection
                             );
-
-
                         cmd.ExecuteNonQuery();
-
-
                         MessageBox.Show("Backup Diferencial feito com Sucesso");
-
                     }
                     else
                     {
@@ -51,13 +39,9 @@ namespace AutoBackup
                             TO DISK = '{localpasta}\{nomeEmpresa}{bancoNome}.bak'", connection
                             );
                         cmd.ExecuteNonQuery();
-
-
                         MessageBox.Show("Backup feito com Sucesso");
-
                     }
                 }
-
                 catch (Exception ex)
                 {
                     MessageBox.Show("Erro ao conectar ao banco de dados: " + ex.Message);
