@@ -113,10 +113,6 @@ namespace AutoBackup
             }
         }
 
-        private void bunifuShadowPanel1_ControlAdded(object sender, ControlEventArgs e)
-        {
-
-        }
 
         private void backupTab_Click(object sender, EventArgs e)
         {
@@ -145,16 +141,17 @@ namespace AutoBackup
                 iniciarAutoBackup.Text = "Iniciar";
 
                 timer1.Enabled = false;
-                timer1.Tick += new EventHandler(timer1_Tick);
-                timer1.Interval = 5 * 3600000;
-                timer1.Start();
+                
 
             }
             else
             {
                 iniciarAutoBackup.Text = "Parar";
-
+            
                 timer1.Enabled = true;
+                timer1.Tick += new EventHandler(timer1_Tick);
+                timer1.Interval = 5 * 3600000;
+                timer1.Start();
                 try
                 {
                     string connectionString = $"Server={Instancia.Text};Database={Banco.Text};User ID={Usuario.Text};Password={Senha.Text};";
