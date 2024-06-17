@@ -67,7 +67,7 @@ namespace AutoBackup
             OpenFileDialog localArquivo = new OpenFileDialog();
             localArquivo.Multiselect = false;
             localArquivo.Title = "Selecionar Arquivos";
-            localArquivo.InitialDirectory = LocalPasta.SelectedText;
+            localArquivo.InitialDirectory = LocalPasta.Text;
             localArquivo.Filter = "All files (*.*)|*.*";
             localArquivo.CheckFileExists = true;
             localArquivo.CheckPathExists = true;
