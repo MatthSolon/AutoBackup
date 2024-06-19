@@ -33,9 +33,7 @@ namespace AutoBackup
         {
             FolderBrowserDialog localPasta = new FolderBrowserDialog();
             localPasta.RootFolder = Environment.SpecialFolder.MyComputer;
-
             DialogResult dr = localPasta.ShowDialog();
-
             if (dr == System.Windows.Forms.DialogResult.OK)
             {
                 try
@@ -94,36 +92,26 @@ namespace AutoBackup
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             this.Show();
-
             this.WindowState = FormWindowState.Normal;
-
             this.notifyIcon1.Visible = false;
         }
 
         private void autoBackup_Resize_1(object sender, EventArgs e)
         {
             if (WindowState == FormWindowState.Minimized)
-
             {
-
                 this.Hide();
-
                 notifyIcon1.Visible = true;
-
             }
         }
-
-
         private void backupTab_Click(object sender, EventArgs e)
         {
             paginaProg.PageName = "backupPage";
         }
-
         private void ftpTab_Click(object sender, EventArgs e)
         {
             paginaProg.PageName = "ftpPage";
         }
-
         private void googleTab_Click(object sender, EventArgs e)
         {
             paginaProg.PageName = "googlePage";
@@ -164,7 +152,7 @@ namespace AutoBackup
                         SqlCommand cmd = new SqlCommand(
                         backupConteudo = $@"BACKUP DATABASE {Banco.Text} 
                         TO DISK = '{LocalPasta.Text}\{EmpresaNome.Text}{Banco.Text}.bak'
-                    ", connection
+                        ", connection
                         );
                         cmd.ExecuteNonQuery();
 

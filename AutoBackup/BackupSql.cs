@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bunifu.Framework.UI;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -18,9 +19,9 @@ namespace AutoBackup
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 try
-                {
+                { 
                     if (bkpDiferencial)
-                    {
+                    {   
                         connection.Open();
                         SqlCommand cmd = new SqlCommand(
                            backupConteudo = $@"BACKUP DATABASE {bancoNome} 
@@ -28,7 +29,10 @@ namespace AutoBackup
                             WITH DIFFERENTIAL
                             ", connection
                             );
-                        cmd.ExecuteNonQuery();
+                            
+                            cmd.ExecuteNonQuery();
+
+
                         MessageBox.Show("Backup Diferencial feito com Sucesso");
                     }
                     else
@@ -44,7 +48,7 @@ namespace AutoBackup
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Erro ao conectar ao banco de dados: " + ex.Message);
+                    MessageBox.Show("Erro ao conectar ao banco de dados: " + ex.Message);            
                 }
             }
         }
